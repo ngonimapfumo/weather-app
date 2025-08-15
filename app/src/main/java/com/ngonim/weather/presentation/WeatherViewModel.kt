@@ -1,9 +1,9 @@
-package com.ngonim.weather.data
+package com.ngonim.weather.presentation
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ngonim.weather.network.api.RetrofitInstance
+import com.ngonim.weather.data.remote.network.api.RetrofitInstance
 import kotlinx.coroutines.launch
 
 class WeatherViewModel : ViewModel() {

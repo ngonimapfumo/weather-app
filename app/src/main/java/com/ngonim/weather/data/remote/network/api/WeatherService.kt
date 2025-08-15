@@ -1,4 +1,4 @@
-package com.ngonim.weather.network.api
+package com.ngonim.weather.data.remote.network.api
 
 import com.ngonim.weather.data.model.GetCurrentWeatherResponse
 import retrofit2.Response

@@ -1,4 +1,4 @@
-package com.ngonim.weather.ui.theme
+package com.ngonim.weather.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 

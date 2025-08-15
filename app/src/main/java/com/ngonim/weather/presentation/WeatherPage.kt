@@ -1,4 +1,4 @@
-package com.ngonim.weather
+package com.ngonim.weather.presentation
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -19,7 +19,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.ngonim.weather.data.WeatherViewModel
 
 @Composable
 fun WeatherPage(viewModel: WeatherViewModel) {
