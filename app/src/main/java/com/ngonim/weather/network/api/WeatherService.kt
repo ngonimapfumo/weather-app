@@ -1,5 +1,6 @@
 package com.ngonim.weather.network.api
 
+import com.ngonim.weather.data.model.GetCurrentWeatherResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -9,5 +10,5 @@ interface WeatherService {
     suspend fun getWeather(
         @Query("key") apiKey: String,
         @Query("q") city: String
-    )
+    ): GetCurrentWeatherResponse
 }
