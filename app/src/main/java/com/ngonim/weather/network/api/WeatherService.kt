@@ -10,5 +10,4 @@ interface WeatherService {
         @Query("key") apiKey: String,
         @Query("q") city: String
     )
-
 }
