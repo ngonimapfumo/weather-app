@@ -14,11 +14,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.ViewModelProvider
+import com.ngonim.weather.data.WeatherViewModel
 import com.ngonim.weather.ui.theme.WeatherTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val viewModel = ViewModelProvider(this)[WeatherViewModel::class.java]
         enableEdgeToEdge()
         setContent {
             WeatherTheme {
@@ -28,11 +31,16 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.padding(innerPadding),
                         color = MaterialTheme.colorScheme.background
                     ) {
-                        WeatherPage()
+                        WeatherPage(viewModel)
                     }
                 }
             }
         }
     }
+@Preview
+@Composable
+fun Preview(){
+   // WeatherPage()
+}
 }
 

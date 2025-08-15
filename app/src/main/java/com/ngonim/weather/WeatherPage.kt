@@ -19,9 +19,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.ngonim.weather.data.WeatherViewModel
 
 @Composable
-fun WeatherPage() {
+fun WeatherPage(viewModel: WeatherViewModel) {
     var city by remember {
         mutableStateOf("")
     }
@@ -46,7 +47,9 @@ fun WeatherPage() {
                     Text("Search for any location")
                 }
             )
-            IconButton(onClick = {}) {
+            IconButton(onClick = {
+                viewModel.fetchWeather(city)
+            }) {
                 Icon(
                     imageVector = Icons.Default.Search,
                     contentDescription = "Search Icon"
@@ -55,5 +58,4 @@ fun WeatherPage() {
 
         }
     }
-
 }
