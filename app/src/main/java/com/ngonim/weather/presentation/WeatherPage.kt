@@ -21,6 +21,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.ngonim.weather.data.model.GetCurrentWeatherResponse
 import com.ngonim.weather.data.util.NetworkResponse
 
 @Composable
@@ -68,11 +69,15 @@ fun WeatherPage(viewModel: WeatherViewModel) {
                 CircularProgressIndicator()
             }
             is NetworkResponse.Success -> {
-                Text(text = result.data.toString())
+                WeatherDetails(data = result.data)
             }
             null -> {}
         }
-
-
     }
+}
+@Composable
+fun WeatherDetails(data: GetCurrentWeatherResponse){
+
+
+
 }
