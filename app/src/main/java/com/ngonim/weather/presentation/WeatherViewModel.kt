@@ -1,21 +1,34 @@
 package com.ngonim.weather.presentation
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ngonim.weather.data.model.GetCurrentWeatherResponse
 import com.ngonim.weather.data.remote.network.api.RetrofitInstance
+import com.ngonim.weather.data.util.NetworkResponse
+import com.ngonim.weather.util.Constants.API_KEY
 import kotlinx.coroutines.launch
 
 class WeatherViewModel : ViewModel() {
     private val weatherService = RetrofitInstance.weatherApi
+    private val _weatherResult = MutableLiveData<NetworkResponse<GetCurrentWeatherResponse>>()
+    val weatherResult: LiveData<NetworkResponse<GetCurrentWeatherResponse>> = _weatherResult
     fun fetchWeather(city: String) {
+        _weatherResult.value = NetworkResponse.Loading
         viewModelScope.launch {
-            val response = weatherService.getWeather("d4544ccacad044fcb2d172633252307", city,"no")
-
-            if (response.isSuccessful) {
-                Log.d("TAG:Response", "fetchWeather: ${response.body().toString()}")
-            } else {
-                Log.d("TAG:Response", "fetchWeather: ${response.message()}")
+            try {
+                val response = weatherService.getWeather(API_KEY, city, "yes")
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        _weatherResult.value = NetworkResponse.Success(it)
+                    }
+                } else {
+                    _weatherResult.value = NetworkResponse.Error("Error fetching weather")
+                }
+            } catch (e: Exception) {
+                Log.d("TAG:Exception", "fetchWeather: ${e.message}")
             }
         }
     }
