@@ -38,8 +38,6 @@ class MainActivity : ComponentActivity() {
     }
 @Preview
 @Composable
-fun Preview(){
-   // WeatherPage()
-}
+fun Preview(){WeatherPage(null)}
 }
 
