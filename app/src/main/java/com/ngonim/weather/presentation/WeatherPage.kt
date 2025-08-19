@@ -135,8 +135,7 @@ fun WeatherDetails(data: GetCurrentWeatherResponse) {
                 contentDescription = "Location Icon",
                 modifier = Modifier
                     .size(40.dp)
-                    .padding(start = 8.dp).padding(top = 10.dp),
-                tint = Color.Black
+                    .padding(start = 8.dp).padding(top = 12.dp)
             )
             Text(
                 modifier = Modifier.padding(start = 8.dp),
@@ -196,8 +195,7 @@ fun WeatherDetails(data: GetCurrentWeatherResponse) {
         Spacer(modifier = Modifier.padding(16.dp))
         Card(
             modifier = Modifier.fillMaxWidth(),
-            elevation = CardDefaults.cardElevation(5.dp),
-            colors = CardDefaults.cardColors( Color.White)
+            elevation = CardDefaults.cardElevation(5.dp)
         ) {
             Column(modifier = Modifier.fillMaxWidth()) {
                 Row(
