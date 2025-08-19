@@ -124,7 +124,7 @@ fun WeatherDetails(data: GetCurrentWeatherResponse) {
             Spacer(modifier = Modifier.width(8.dp))
             Text(
                 text = data.location?.country.toString(),
-                fontSize = 18.sp,
+                fontSize = 22.sp,
                 color = Color.Gray
             )
         }
@@ -135,7 +135,7 @@ fun WeatherDetails(data: GetCurrentWeatherResponse) {
                 text = data.current?.tempC.toString(),
                 fontSize = 56.sp,
                 fontWeight = FontWeight.Bold,
-                fontStyle = FontStyle.Normal,
+                fontStyle = FontStyle.Italic,
                 textAlign = TextAlign.Center
             )
             Text(text = "°C")
@@ -143,18 +143,18 @@ fun WeatherDetails(data: GetCurrentWeatherResponse) {
         }
         Spacer(modifier = Modifier.height(16.dp))
 
-        Text(
-            text = data.current?.condition?.text.toString(),
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Bold,
-            fontStyle = FontStyle.Normal,
-            textAlign = TextAlign.Center
-        )
         AsyncImage(
             modifier = Modifier.size(160.dp),
             model = "https:${data.current?.condition?.icon}"
                 .replace("64x64","128x128"),
             contentDescription = "Weather Icon"
+        )
+        Text(
+            text = data.current?.condition?.text.toString(),
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold,
+            fontStyle = FontStyle.Normal,
+            textAlign = TextAlign.Center
         )
 
     }
