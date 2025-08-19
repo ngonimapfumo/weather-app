@@ -16,6 +16,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
@@ -195,15 +196,25 @@ fun WeatherDetails(data: GetCurrentWeatherResponse) {
         Spacer(modifier = Modifier.padding(16.dp))
         Card(
             modifier = Modifier.fillMaxWidth(),
-            elevation = CardDefaults.cardElevation(5.dp)
+            elevation = CardDefaults.cardElevation(5.dp),
+            colors = CardDefaults.cardColors( Color.White)
         ) {
             Column(modifier = Modifier.fillMaxWidth()) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceAround
                 ) {
-                    WeatherValues("Wind direction", data.current?.windDir.toString())
+                    WeatherValues("Wind speed", data.current?.windKph.toString())
                     WeatherValues("Humidity", data.current?.humidity.toString())
+
+                }
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceAround
+                ) {
+                    WeatherValues("Precipitation", data.current?.precipIn.toString())
+                    WeatherValues("UV Index", data.current?.uv.toString())
 
                 }
 
