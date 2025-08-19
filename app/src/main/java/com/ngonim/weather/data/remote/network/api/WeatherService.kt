@@ -13,4 +13,8 @@ interface WeatherService {
         @Query("q") city: String,
         @Query("aqi") airQuality: String
     ): Response<GetCurrentWeatherResponse>
+
+    @GET("")
+    suspend fun getForecast()
+
 }

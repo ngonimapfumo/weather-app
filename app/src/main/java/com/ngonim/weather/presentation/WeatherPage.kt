@@ -1,10 +1,12 @@
 package com.ngonim.weather.presentation
 
+import android.R
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -25,9 +27,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.ngonim.weather.data.model.GetCurrentWeatherResponse
+import com.ngonim.weather.data.model.GetCurrentWeatherResponse.Location
 import com.ngonim.weather.data.util.NetworkResponse
 
 @Composable
@@ -107,7 +115,8 @@ fun WeatherDetails(data: GetCurrentWeatherResponse) {
             Icon(
                 imageVector = Icons.Default.LocationOn,
                 contentDescription = "Location Icon",
-                modifier = Modifier.size(40.dp)
+                modifier = Modifier.size(40.dp),
+                tint = Color.Red
             )
             Text(
                 text = data.location?.name.toString(),
@@ -116,7 +125,35 @@ fun WeatherDetails(data: GetCurrentWeatherResponse) {
             Text(text = data.location?.country.toString(),
                 fontSize = 18.sp,
                 color = Color.Gray)
-
         }
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Text(text = data.current?.tempC.toString(),
+            fontSize = 56.sp,
+            fontWeight = FontWeight.Bold,
+            fontStyle = FontStyle.Normal,
+            textAlign = TextAlign.Center)
+        AsyncImage(modifier = Modifier.size(160.dp),
+            model = "https:${data.current?.condition?.icon}",
+            contentDescription = "Weather Icon")
+
     }
 }
+@Preview
+@Composable
+fun WeatherDetailsPreview() {
+    val data = GetCurrentWeatherResponse(
+        current = null,
+        location = Location(
+            name = "London",
+            country = "United States Of America",
+            lat = 51.52,
+            lon = -0.11, localtime = "2023-11-22 10:30",
+            localtimeEpoch = 1699981800,
+            region = "City of London, Greater London",
+            tzId = "Europe/London"
+        )
+    )
+    WeatherDetails(data = data)
+}
+

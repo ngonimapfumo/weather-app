@@ -61,6 +61,7 @@ dependencies {
     implementation(libs.gsonConverter)
     implementation(libs.logging.interceptor)
     implementation(libs.androidx.runtime.livedata)
+    implementation(libs.coil.compose)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
