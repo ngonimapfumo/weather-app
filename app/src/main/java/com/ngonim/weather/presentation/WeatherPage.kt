@@ -1,6 +1,5 @@
 package com.ngonim.weather.presentation
 
-import android.R
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -120,25 +119,47 @@ fun WeatherDetails(data: GetCurrentWeatherResponse) {
             )
             Text(
                 text = data.location?.name.toString(),
-                fontSize = 30.sp)
+                fontSize = 30.sp
+            )
             Spacer(modifier = Modifier.width(8.dp))
-            Text(text = data.location?.country.toString(),
+            Text(
+                text = data.location?.country.toString(),
                 fontSize = 18.sp,
-                color = Color.Gray)
+                color = Color.Gray
+            )
         }
         Spacer(modifier = Modifier.height(16.dp))
 
-        Text(text = data.current?.tempC.toString(),
-            fontSize = 56.sp,
+        Row {
+            Text(
+                text = data.current?.tempC.toString(),
+                fontSize = 56.sp,
+                fontWeight = FontWeight.Bold,
+                fontStyle = FontStyle.Normal,
+                textAlign = TextAlign.Center
+            )
+            Text(text = "°C")
+
+        }
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Text(
+            text = data.current?.condition?.text.toString(),
+            fontSize = 16.sp,
             fontWeight = FontWeight.Bold,
             fontStyle = FontStyle.Normal,
-            textAlign = TextAlign.Center)
-        AsyncImage(modifier = Modifier.size(160.dp),
-            model = "https:${data.current?.condition?.icon}",
-            contentDescription = "Weather Icon")
+            textAlign = TextAlign.Center
+        )
+        AsyncImage(
+            modifier = Modifier.size(160.dp),
+            model = "https:${data.current?.condition?.icon}"
+                .replace("64x64","128x128"),
+            contentDescription = "Weather Icon"
+        )
 
     }
 }
+
 @Preview
 @Composable
 fun WeatherDetailsPreview() {
