@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Search
@@ -32,8 +34,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -51,6 +55,7 @@ fun WeatherPage(viewModel: WeatherViewModel?) {
         mutableStateOf("")
     }
     val weatherResult = viewModel?.weatherResult?.observeAsState()
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     Column(
         modifier = Modifier
@@ -70,6 +75,12 @@ fun WeatherPage(viewModel: WeatherViewModel?) {
                 modifier = Modifier.weight(1f),
                 shape = RoundedCornerShape(25.dp),
                 maxLines = 1,
+                singleLine = true,
+                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+                keyboardActions = KeyboardActions(onSearch = {
+                    viewModel?.fetchWeather(city)
+                    keyboardController?.hide()
+                }),
                 value = city,
                 onValueChange = {
                     city = it
@@ -79,6 +90,7 @@ fun WeatherPage(viewModel: WeatherViewModel?) {
             )
             IconButton(onClick = {
                 viewModel?.fetchWeather(city)
+                keyboardController?.hide()
             }) {
                 Icon(
                     imageVector = Icons.Default.Search,
@@ -195,7 +207,7 @@ fun WeatherDetails(data: GetCurrentWeatherResponse) {
         Spacer(modifier = Modifier.padding(16.dp))
         Card(
             modifier = Modifier.fillMaxWidth(),
-            elevation = CardDefaults.cardElevation(5.dp)
+            elevation = CardDefaults.cardElevation(10.dp)
         ) {
             Column(modifier = Modifier.fillMaxWidth()) {
                 Row(
@@ -204,6 +216,15 @@ fun WeatherDetails(data: GetCurrentWeatherResponse) {
                 ) {
                     WeatherValues("Wind speed", data.current?.windKph.toString())
                     WeatherValues("Humidity", data.current?.humidity.toString())
+
+                }
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceAround
+                ) {
+                    WeatherValues("Precipitation", data.current?.precipIn.toString())
+                    WeatherValues("UV Index", data.current?.uv.toString())
 
                 }
 
@@ -230,7 +251,7 @@ fun WeatherValues(key:String, value: String) {
     Column(modifier = Modifier.padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally){
         Text(text = value, fontSize = 24.sp,
-            fontWeight = FontWeight.Bold)
+            fontWeight = FontWeight.Light)
         Text(key, fontWeight = FontWeight.SemiBold,
             color = Color.Gray)
     }
