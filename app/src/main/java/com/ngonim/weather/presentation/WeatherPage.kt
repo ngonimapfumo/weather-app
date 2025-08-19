@@ -85,7 +85,11 @@ fun WeatherPage(viewModel: WeatherViewModel?) {
         }
         when (val result = weatherResult?.value) {
             is NetworkResponse.Error -> {
-                Text(text = result.message)
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ){Text(text = result.message)}
+
             }
 
             NetworkResponse.Loading -> {
