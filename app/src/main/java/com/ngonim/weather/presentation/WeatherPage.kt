@@ -1,14 +1,17 @@
 package com.ngonim.weather.presentation
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Search
@@ -37,6 +40,7 @@ import com.ngonim.weather.data.model.GetCurrentWeatherResponse
 import com.ngonim.weather.data.model.GetCurrentWeatherResponse.Location
 import com.ngonim.weather.data.util.NetworkResponse
 
+
 @Composable
 fun WeatherPage(viewModel: WeatherViewModel?) {
     var city by remember {
@@ -60,6 +64,7 @@ fun WeatherPage(viewModel: WeatherViewModel?) {
         ) {
             OutlinedTextField(
                 modifier = Modifier.weight(1f),
+                shape = RoundedCornerShape(25.dp),
                 maxLines = 1,
                 value = city,
                 onValueChange = {
@@ -84,7 +89,13 @@ fun WeatherPage(viewModel: WeatherViewModel?) {
             }
 
             NetworkResponse.Loading -> {
-                CircularProgressIndicator()
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator()
+                }
+
             }
 
             is NetworkResponse.Success -> {
@@ -114,19 +125,28 @@ fun WeatherDetails(data: GetCurrentWeatherResponse) {
             Icon(
                 imageVector = Icons.Default.LocationOn,
                 contentDescription = "Location Icon",
-                modifier = Modifier.size(40.dp),
+                modifier = Modifier.size(40.dp).padding(start = 8.dp),
                 tint = Color.Red
             )
             Text(
+                modifier = Modifier.padding(start = 8.dp),
                 text = data.location?.name.toString(),
-                fontSize = 30.sp
+                fontSize = 28.sp,
+                fontWeight = FontWeight.Light
             )
             Spacer(modifier = Modifier.width(8.dp))
-            Text(
-                text = data.location?.country.toString(),
-                fontSize = 22.sp,
-                color = Color.Gray
-            )
+
+            Column {
+                Text(
+                    text = data.location?.country.toString(),
+                    color = Color.Gray
+                )
+                Text(text = data.location?.region.toString(),
+                    fontWeight = FontWeight.Light)
+            }
+
+
+
         }
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -134,11 +154,12 @@ fun WeatherDetails(data: GetCurrentWeatherResponse) {
             Text(
                 text = data.current?.tempC.toString(),
                 fontSize = 56.sp,
-                fontWeight = FontWeight.Bold,
-                fontStyle = FontStyle.Italic,
+                fontWeight = FontWeight.ExtraLight,
+                fontStyle = FontStyle.Normal,
                 textAlign = TextAlign.Center
             )
             Text(text = "°C")
+
 
         }
         Spacer(modifier = Modifier.height(16.dp))
@@ -152,7 +173,7 @@ fun WeatherDetails(data: GetCurrentWeatherResponse) {
         Text(
             text = data.current?.condition?.text.toString(),
             fontSize = 20.sp,
-            fontWeight = FontWeight.Bold,
+            fontWeight = FontWeight.Light,
             fontStyle = FontStyle.Normal,
             textAlign = TextAlign.Center
         )
@@ -167,7 +188,7 @@ fun WeatherDetailsPreview() {
         current = null,
         location = Location(
             name = "London",
-            country = "United States Of America",
+            country = "United Kingdom",
             lat = 51.52,
             lon = -0.11, localtime = "2023-11-22 10:30",
             localtimeEpoch = 1699981800,
