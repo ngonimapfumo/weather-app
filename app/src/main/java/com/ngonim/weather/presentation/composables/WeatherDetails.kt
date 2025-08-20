@@ -49,7 +49,8 @@ fun WeatherDetails(data: GetCurrentWeatherResponse) {
                 contentDescription = "Location Icon",
                 modifier = Modifier
                     .size(40.dp)
-                    .padding(start = 8.dp).padding(top = 12.dp)
+                    .padding(start = 8.dp)
+                    .padding(top = 12.dp)
             )
             Text(
                 modifier = Modifier.padding(start = 8.dp),
@@ -106,10 +107,14 @@ fun WeatherDetails(data: GetCurrentWeatherResponse) {
             fontStyle = FontStyle.Normal,
             textAlign = TextAlign.Center
         )
-        Spacer(modifier = Modifier.padding(16.dp))
+        Spacer(modifier = Modifier.padding(8.dp))
         Card(
-            modifier = Modifier.fillMaxWidth(),
-            elevation = CardDefaults.cardElevation(10.dp)
+            modifier = Modifier.fillMaxWidth().padding(16.dp),
+            elevation = CardDefaults.cardElevation(
+                pressedElevation = 2.dp,
+                defaultElevation = 2.dp,
+                focusedElevation = 2.dp,
+                hoveredElevation = 2.dp)
         ) {
             Column(modifier = Modifier.fillMaxWidth()) {
                 Row(
