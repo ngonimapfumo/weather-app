@@ -118,15 +118,23 @@ fun WeatherPage(viewModel: WeatherViewModel?) {
 
 
 
-@Composable
-fun WeatherValues(key:String, value: String) {
-    Column(modifier = Modifier.padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally){
-        Text(text = value, fontSize = 24.sp,
-            fontWeight = FontWeight.Light)
-        Text(key, fontWeight = FontWeight.SemiBold,
-            color = Color.Gray)
-    }
-}
 
+
+@Preview
+@Composable
+fun WeatherDetailsPreview() {
+    val data = GetCurrentWeatherResponse(
+        current = null,
+        location = Location(
+            name = "London",
+            country = "United Kingdom",
+            lat = 51.52,
+            lon = -0.11, localtime = "2023-11-22 10:30",
+            localtimeEpoch = 1699981800,
+            region = "City of London, Greater London",
+            tzId = "Europe/London"
+        )
+    )
+    WeatherDetails(data = data)
+}
 
