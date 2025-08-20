@@ -1,4 +1,4 @@
-package com.ngonim.weather.presentation
+package com.ngonim.weather.presentation.weather
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.ngonim.weather.data.model.GetCurrentWeatherResponse
 import com.ngonim.weather.data.remote.network.api.RetrofitInstance
 import com.ngonim.weather.data.util.NetworkResponse
-import com.ngonim.weather.util.Constants.API_KEY
+import com.ngonim.weather.util.Constants
 import kotlinx.coroutines.launch
 
 class WeatherViewModel : ViewModel() {
@@ -19,7 +19,7 @@ class WeatherViewModel : ViewModel() {
         _weatherResult.value = NetworkResponse.Loading
         viewModelScope.launch {
             try {
-                val response = weatherService.getWeather(API_KEY, city, "yes")
+                val response = weatherService.getWeather(Constants.API_KEY, city, "yes")
                 if (response.isSuccessful) {
                     response.body()?.let {
                         _weatherResult.value = NetworkResponse.Success(it)

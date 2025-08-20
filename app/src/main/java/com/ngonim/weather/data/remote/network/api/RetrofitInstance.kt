@@ -1,6 +1,8 @@
 package com.ngonim.weather.data.remote.network.api
 
 import com.ngonim.weather.BuildConfig
+import com.ngonim.weather.data.remote.network.service.WeatherService
+import com.ngonim.weather.util.Constants.BASE_URL
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -8,7 +10,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object RetrofitInstance {
-    private const val BASE_URL = "https://api.weatherapi.com"
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
         level = when {
             BuildConfig.DEBUG -> {

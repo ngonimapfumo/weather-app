@@ -1,4 +1,4 @@
-package com.ngonim.weather
+package com.ngonim.weather.presentation.weather
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -13,8 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.ViewModelProvider
-import com.ngonim.weather.presentation.WeatherViewModel
-import com.ngonim.weather.presentation.WeatherPage
+import com.ngonim.weather.presentation.composables.WeatherPage
 import com.ngonim.weather.presentation.theme.WeatherTheme
 
 class MainActivity : ComponentActivity() {
@@ -24,10 +23,12 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             WeatherTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                Scaffold(
+                    modifier = Modifier.Companion.fillMaxSize()
+                ) { innerPadding ->
 
                     Surface(
-                        modifier = Modifier.padding(innerPadding),
+                        modifier = Modifier.Companion.padding(innerPadding),
                         color = MaterialTheme.colorScheme.background
                     ) {
                         WeatherPage(viewModel)
@@ -38,6 +39,7 @@ class MainActivity : ComponentActivity() {
     }
 @Preview
 @Composable
-fun Preview(){WeatherPage(null)}
+fun Preview(){
+    WeatherPage(null)
 }
-
+}

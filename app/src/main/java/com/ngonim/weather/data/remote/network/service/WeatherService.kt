@@ -1,4 +1,4 @@
-package com.ngonim.weather.data.remote.network.api
+package com.ngonim.weather.data.remote.network.service
 
 import com.ngonim.weather.data.model.GetCurrentWeatherResponse
 import retrofit2.Response
@@ -9,12 +9,8 @@ interface WeatherService {
 
     @GET("/v1/current.json")
     suspend fun getWeather(
-        @Query("key") apiKey: String,
-        @Query("q") city: String,
-        @Query("aqi") airQuality: String
+        @Query("key") apiKey:String,
+        @Query("q") city:String,
+        @Query("aqi") airQuality:String
     ): Response<GetCurrentWeatherResponse>
-
-    @GET("")
-    suspend fun getForecast()
-
 }
