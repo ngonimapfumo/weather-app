@@ -23,10 +23,12 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.ngonim.weather.data.model.GetCurrentWeatherResponse
+import com.ngonim.weather.data.model.GetCurrentWeatherResponse.Location
 
 
 @Composable
@@ -54,7 +56,6 @@ fun WeatherDetails(data: GetCurrentWeatherResponse) {
             )
             Text(
                 modifier = Modifier.padding(start = 8.dp),
-                overflow = TextOverflow.Ellipsis,
                 text = data.location?.name.toString(),
                 fontSize = 28.sp,
                 fontWeight = FontWeight.Light
@@ -109,12 +110,15 @@ fun WeatherDetails(data: GetCurrentWeatherResponse) {
         )
         Spacer(modifier = Modifier.padding(8.dp))
         Card(
-            modifier = Modifier.fillMaxWidth().padding(16.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
             elevation = CardDefaults.cardElevation(
                 pressedElevation = 2.dp,
                 defaultElevation = 2.dp,
                 focusedElevation = 2.dp,
-                hoveredElevation = 2.dp)
+                hoveredElevation = 2.dp
+            )
         ) {
             Column(modifier = Modifier.fillMaxWidth()) {
                 Row(
@@ -140,7 +144,7 @@ fun WeatherDetails(data: GetCurrentWeatherResponse) {
                     horizontalArrangement = Arrangement.SpaceAround
                 ) {
                     WeatherValues("Heat index", data.current?.heatindexC.toString())
-                    WeatherValues("Cloud cover", data.current?.cloud.toString())
+                    WeatherValues(" Cloud cover", data.current?.cloud.toString())
 
                 }
             }
@@ -148,4 +152,22 @@ fun WeatherDetails(data: GetCurrentWeatherResponse) {
 
 
     }
+}
+
+@Preview
+@Composable
+fun WeatherDetailsPreview() {
+    val data = GetCurrentWeatherResponse(
+        current = null,
+        location = Location(
+            name = "London",
+            country = "United Kingdom",
+            lat = 51.52,
+            lon = -0.11, localtime = "2023-11-22 10:30",
+            localtimeEpoch = 1699981800,
+            region = "City of London, Greater London",
+            tzId = "Europe/London"
+        )
+    )
+    WeatherDetails(data = data)
 }

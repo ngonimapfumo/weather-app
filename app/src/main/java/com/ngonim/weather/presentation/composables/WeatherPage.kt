@@ -122,7 +122,7 @@ fun WeatherPage(viewModel: WeatherViewModel?) {
 
 @Preview
 @Composable
-fun WeatherDetailsPreview() {
+fun WeatherPagePreview() {
     val data = GetCurrentWeatherResponse(
         current = null,
         location = Location(
