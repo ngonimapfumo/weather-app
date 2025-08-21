@@ -79,7 +79,7 @@ fun WeatherDetails(data: GetCurrentWeatherResponse) {
                 fontWeight = FontWeight.Light
             )
         }
-        //  Spacer(modifier = Modifier.height(16.dp))
+         // Spacer(modifier = Modifier.height(16.dp))
 
         Row {
             Text(
@@ -144,13 +144,11 @@ fun WeatherDetails(data: GetCurrentWeatherResponse) {
                     horizontalArrangement = Arrangement.SpaceAround
                 ) {
                     WeatherValues("Heat index", data.current?.heatindexC.toString())
-                    WeatherValues(" Cloud cover", data.current?.cloud.toString())
+                    WeatherValues("  Cloud cover", data.current?.cloud.toString())
 
                 }
             }
         }
-
-
     }
 }
 
