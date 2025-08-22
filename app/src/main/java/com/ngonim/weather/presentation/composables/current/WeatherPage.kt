@@ -112,10 +112,12 @@ fun WeatherPage(viewModel: WeatherViewModel?) {
         }
     }
 }
-
-
-
-
+@Preview
+@Composable
+fun WeatherPagePreview1() {
+  val viewModel: WeatherViewModel? = null
+  WeatherPage(viewModel)
+}
 
 @Preview
 @Composable
