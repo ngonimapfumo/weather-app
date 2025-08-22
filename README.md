@@ -14,7 +14,7 @@ Weather app Jetpack Compose
 
 
 - [Technologies Used](#technologies-used)
-- Kotlin
+- [Kotlin](https://kotlinlang.org/)
 - Compose
 - Coil
 - Retrofit
