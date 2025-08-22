@@ -112,7 +112,7 @@ fun WeatherDetails(data: GetCurrentWeatherResponse) {
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(8.dp),
             elevation = CardDefaults.cardElevation(
                 pressedElevation = 2.dp,
                 defaultElevation = 2.dp,
@@ -139,14 +139,14 @@ fun WeatherDetails(data: GetCurrentWeatherResponse) {
 
                 }
 
-                Row(
+                /*Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceAround
                 ) {
                     WeatherValues("Heat index", data.current?.heatindexC.toString())
                     WeatherValues("  Cloud cover", data.current?.cloud.toString())
 
-                }
+                }*/
             }
         }
     }
