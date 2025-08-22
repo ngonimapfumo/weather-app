@@ -119,8 +119,8 @@ class MainActivity : ComponentActivity() {
                                         Column(modifier = Modifier.fillMaxSize()) {WeatherPage(viewModel)  }
 
                                     }
-                                    "Forecast" -> {
-                                        Text(text= "Forecast")
+                                    "Alerts" -> {
+                                        Column(modifier = Modifier.fillMaxSize()) {WeatherPage(viewModel)  }
                                     }
                                 }
                             }

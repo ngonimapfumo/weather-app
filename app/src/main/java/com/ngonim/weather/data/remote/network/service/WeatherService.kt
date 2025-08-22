@@ -1,5 +1,6 @@
 package com.ngonim.weather.data.remote.network.service
 
+import com.ngonim.weather.data.model.GetAlertsResponse
 import com.ngonim.weather.data.model.GetCurrentWeatherResponse
 import com.ngonim.weather.data.model.GetForecastResponse
 import retrofit2.Response
@@ -23,4 +24,10 @@ interface WeatherService {
         @Query("aqi") airQuality:String,
         @Query("alerts") alerts:String
     ): Response<GetForecastResponse>
+
+    @GET("alerts.json")
+    suspend fun getAlerts(
+        @Query("key") apiKey:String,
+        @Query("q") city:String
+    ): Response<GetAlertsResponse>
 }
