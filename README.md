@@ -13,6 +13,10 @@ Weather app Jetpack Compose
 
 
 - [Technologies Used](#technologies-used)
+- ##Kotlin
+- ##Compose
+- ##Coil
+- ##Retrofit
 - [Setup](#setup)
 - [Usage](#usage)
 - [Contributing](#contributing)
