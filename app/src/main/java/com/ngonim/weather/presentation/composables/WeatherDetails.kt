@@ -43,30 +43,23 @@ fun WeatherDetails(data: GetCurrentWeatherResponse) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.Bottom,
-            horizontalArrangement = Arrangement.Start
+            horizontalArrangement = Arrangement.Center
 
         ) {
-            Icon(
-                imageVector = Icons.Default.LocationOn,
-                contentDescription = "Location Icon",
-                modifier = Modifier
-                    .size(40.dp)
-                    .padding(start = 8.dp)
-                    .padding(top = 12.dp)
-            )
+
             Text(
                 modifier = Modifier.padding(start = 8.dp),
                 text = data.location?.name.toString(),
                 fontSize = 28.sp,
-                fontWeight = FontWeight.Light
+                fontWeight = FontWeight.SemiBold
             )
             Spacer(modifier = Modifier.width(8.dp))
         }
 
         Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 50.dp)
+                .fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
                 text = data.location?.country.toString(),
@@ -85,31 +78,31 @@ fun WeatherDetails(data: GetCurrentWeatherResponse) {
             Text(
                 text = data.current?.tempC.toString(),
                 fontSize = 56.sp,
-                fontWeight = FontWeight.ExtraLight,
+                fontWeight = FontWeight.SemiBold,
                 fontStyle = FontStyle.Normal,
                 textAlign = TextAlign.Center
             )
-            Text(text = "°C")
+            Text(text = "°C",fontWeight = FontWeight.SemiBold)
 
 
         }
         Spacer(modifier = Modifier.height(16.dp))
-
+        Text(
+            text = data.current?.condition?.text.toString(),
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Light,
+            fontStyle = FontStyle.Normal,
+            textAlign = TextAlign.Center
+        )
         AsyncImage(
             modifier = Modifier.size(160.dp),
             model = "https:${data.current?.condition?.icon}"
                 .replace("64x64", "128x128"),
             contentDescription = "Weather Icon"
         )
-        Text(
-            text = data.current?.condition?.text.toString(),
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Light,
-            fontStyle = FontStyle.Normal,
-            textAlign = TextAlign.Center
-        )
+
         Spacer(modifier = Modifier.padding(8.dp))
-        Card(
+        /*Card(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp),
@@ -139,16 +132,19 @@ fun WeatherDetails(data: GetCurrentWeatherResponse) {
 
                 }
 
-                /*Row(
+                *//*Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceAround
                 ) {
                     WeatherValues("Heat index", data.current?.heatindexC.toString())
                     WeatherValues("  Cloud cover", data.current?.cloud.toString())
 
-                }*/
+                }*//*
             }
-        }
+        }*/
+
+        WeatherStats(data.current?.windKph.toString(), data.current?.humidity.toString(), data.current?.precipIn.toString(), data.current?.uv.toString())
+
     }
 }
 
