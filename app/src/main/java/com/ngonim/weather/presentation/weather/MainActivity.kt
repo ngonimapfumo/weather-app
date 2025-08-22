@@ -116,15 +116,14 @@ class MainActivity : ComponentActivity() {
                                 val tabItemTitle = tabItems[it].title
                                 when (tabItemTitle) {
                                     "Current" -> {
-                                        Column(modifier = Modifier.fillMaxSize()) {WeatherPage(viewModel)  }
+                                        Column(modifier = Modifier.fillMaxSize()) {WeatherPage(viewModel)}
 
                                     }
                                     "Alerts" -> {
-                                        Column(modifier = Modifier.fillMaxSize()) {WeatherPage(viewModel)  }
+                                        Column(modifier = Modifier.fillMaxSize()) {WeatherPage(viewModel)}
                                     }
                                 }
                             }
-
                         }
                     }
                 }
