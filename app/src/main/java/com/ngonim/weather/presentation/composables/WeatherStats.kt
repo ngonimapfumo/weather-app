@@ -50,7 +50,7 @@ fun WeatherStats(windSpeed:String, humidity:String, precipitation:String, uvInde
 @Preview
 @Composable
 fun WeatherStatsPreview() {
-    WeatherStats("5.8", "100%", "0.0", "0")
+    WeatherStats("5.8", "100", "0.0", "0")
 }
 @Composable
 fun WeatherStatCard(value: String, label: String, modifier: Modifier = Modifier) {

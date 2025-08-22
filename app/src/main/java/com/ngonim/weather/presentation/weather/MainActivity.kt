@@ -11,14 +11,18 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AddAlert
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.LocationSearching
+import androidx.compose.material.icons.filled.NotificationsActive
 import androidx.compose.material.icons.filled.People
 import androidx.compose.material.icons.filled.Phone
+import androidx.compose.material.icons.outlined.AddAlert
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.LocationOn
 import androidx.compose.material.icons.outlined.LocationSearching
+import androidx.compose.material.icons.outlined.NotificationsActive
 import androidx.compose.material.icons.outlined.PeopleOutline
 import androidx.compose.material.icons.outlined.Phone
 import androidx.compose.material3.Icon
@@ -55,9 +59,9 @@ class MainActivity : ComponentActivity() {
                 unSelectedIcon = Icons.Outlined.LocationOn
             ),
             TabItem(
-                title = "Forecast",
-                selectedIcon = Icons.Filled.LocationSearching,
-                unSelectedIcon = Icons.Outlined.LocationSearching
+                title = "Alerts",
+                selectedIcon = Icons.Filled.NotificationsActive,
+                unSelectedIcon = Icons.Outlined.NotificationsActive
             ))
         setContent {
             WeatherTheme {
