@@ -2,6 +2,7 @@ Weather app Jetpack Compose
 
 ## Table of Contents
 - [Introduction](#introduction)
+- Small Compose Weather app 
 - [Features](#features)
 - [Screenshots](#screenshots)
 
@@ -13,10 +14,10 @@ Weather app Jetpack Compose
 
 
 - [Technologies Used](#technologies-used)
-- ##Kotlin
-- ##Compose
-- ##Coil
-- ##Retrofit
+- Kotlin
+- Compose
+- Coil
+- Retrofit
 - [Setup](#setup)
 - [Usage](#usage)
 - [Contributing](#contributing)
