@@ -13,7 +13,7 @@ Weather app Jetpack Compose
 
 
 
-- [Technologies Used](#technologies-used)
+- #[Technologies Used](#technologies-used)#
 - [Kotlin](https://kotlinlang.org/)
 - Compose
 - Coil
