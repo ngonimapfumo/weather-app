@@ -1,4 +1,4 @@
-package com.ngonim.weather.presentation.composables
+package com.ngonim.weather.presentation.composables.current
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,11 +9,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.LocationOn
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,7 +17,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -102,47 +96,6 @@ fun WeatherDetails(data: GetCurrentWeatherResponse) {
         )
 
         Spacer(modifier = Modifier.padding(8.dp))
-        /*Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp),
-            elevation = CardDefaults.cardElevation(
-                pressedElevation = 2.dp,
-                defaultElevation = 2.dp,
-                focusedElevation = 2.dp,
-                hoveredElevation = 2.dp
-            )
-        ) {
-            Column(modifier = Modifier.fillMaxWidth()) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceAround
-                ) {
-                    WeatherValues("Wind speed", data.current?.windKph.toString())
-                    WeatherValues("Humidity", data.current?.humidity.toString())
-
-                }
-
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceAround
-                ) {
-                    WeatherValues("Precipitation", data.current?.precipIn.toString())
-                    WeatherValues("UV Index", data.current?.uv.toString())
-
-                }
-
-                *//*Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceAround
-                ) {
-                    WeatherValues("Heat index", data.current?.heatindexC.toString())
-                    WeatherValues("  Cloud cover", data.current?.cloud.toString())
-
-                }*//*
-            }
-        }*/
-
         WeatherStats(data.current?.windKph.toString(), data.current?.humidity.toString(), data.current?.precipIn.toString(), data.current?.uv.toString())
 
     }

@@ -11,20 +11,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AddAlert
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.LocationOn
-import androidx.compose.material.icons.filled.LocationSearching
 import androidx.compose.material.icons.filled.NotificationsActive
-import androidx.compose.material.icons.filled.People
-import androidx.compose.material.icons.filled.Phone
-import androidx.compose.material.icons.outlined.AddAlert
-import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.LocationOn
-import androidx.compose.material.icons.outlined.LocationSearching
 import androidx.compose.material.icons.outlined.NotificationsActive
-import androidx.compose.material.icons.outlined.PeopleOutline
-import androidx.compose.material.icons.outlined.Phone
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -38,12 +28,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.ViewModelProvider
-import com.ngonim.weather.presentation.composables.WeatherPage
+import com.ngonim.weather.presentation.composables.alerts.WeatherAlertsPage
+import com.ngonim.weather.presentation.composables.current.WeatherPage
 import com.ngonim.weather.presentation.model.TabItem
 import com.ngonim.weather.presentation.theme.WeatherTheme
 
@@ -120,7 +109,7 @@ class MainActivity : ComponentActivity() {
 
                                     }
                                     "Alerts" -> {
-                                        Column(modifier = Modifier.fillMaxSize()) {WeatherPage(viewModel)}
+                                        Column(modifier = Modifier.fillMaxSize()) {WeatherAlertsPage(viewModel) }
                                     }
                                 }
                             }

@@ -1,19 +1,14 @@
 package com.ngonim.weather.presentation.weather
 
 import android.util.Log
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ngonim.weather.data.model.GetAlertsResponse
 import com.ngonim.weather.data.model.GetCurrentWeatherResponse
-import com.ngonim.weather.data.model.GetCurrentWeatherResponse.Location
-import com.ngonim.weather.data.model.GetForecastResponse
 import com.ngonim.weather.data.remote.network.api.RetrofitInstance
 import com.ngonim.weather.data.util.NetworkResponse
-import com.ngonim.weather.presentation.composables.WeatherDetails
 import com.ngonim.weather.util.Constants
 import kotlinx.coroutines.launch
 
