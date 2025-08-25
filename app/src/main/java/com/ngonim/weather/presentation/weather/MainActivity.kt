@@ -1,10 +1,12 @@
 package com.ngonim.weather.presentation.weather
 
 import SettingsPage
+import android.app.UiModeManager.MODE_NIGHT_YES
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -38,6 +40,7 @@ import com.ngonim.weather.presentation.pages.alerts.WeatherAlertsPage
 import com.ngonim.weather.presentation.pages.current.WeatherPage
 import com.ngonim.weather.presentation.model.TabItem
 import com.ngonim.weather.presentation.theme.WeatherTheme
+import com.ngonim.weather.util.ConfigStore
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,14 +57,14 @@ class MainActivity : ComponentActivity() {
                 title = "Alerts",
                 selectedIcon = Icons.Filled.NotificationsActive,
                 unSelectedIcon = Icons.Outlined.NotificationsActive
-            ),
-            TabItem(
+            ))
+            /*TabItem(
                 title = "Settings",
                 selectedIcon = Icons.Filled.Settings,
                 unSelectedIcon = Icons.Outlined.Settings
-            ))
+            ))*/
         setContent {
-            WeatherTheme {
+            WeatherTheme(dynamicColor = true) {
                 Scaffold(
                     modifier = Modifier.Companion.fillMaxSize()
                 ) { innerPadding ->
@@ -120,11 +123,11 @@ class MainActivity : ComponentActivity() {
                                         Column(modifier = Modifier.fillMaxSize()) {WeatherAlertsPage(viewModel) }
                                     }
 
-                                    "Settings" -> {
+                                    /*"Settings" -> {
                                         Column(modifier = Modifier.fillMaxSize()) {
                                             SettingsPage()
                                         }
-                                    }
+                                    }*/
 
                                 }
                             }
