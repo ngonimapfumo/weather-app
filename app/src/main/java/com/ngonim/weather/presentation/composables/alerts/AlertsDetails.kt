@@ -61,9 +61,6 @@ fun AlertCard(alert: List<GetAlertsResponse.Alerts.Alert?>?) {
     val orange = Color(0xFFF97316)
     val yellow = Color(0xFFFACC15)
 
-
-
-
     alert?.forEach {
         headline = it?.headline
         severity = it?.severity
