@@ -1,5 +1,6 @@
 package com.ngonim.weather.presentation.composables.alerts
 
+import AlertsDetails
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -106,7 +107,7 @@ fun WeatherAlertsPage(viewModel: WeatherViewModel?){
         }
 
         is NetworkResponse.Success -> {
-            Text(text = result.data.alerts.toString())
+            AlertsDetails(result.data)
         }
 
         null -> {}
