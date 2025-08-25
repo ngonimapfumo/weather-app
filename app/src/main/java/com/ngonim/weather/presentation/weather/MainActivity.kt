@@ -1,5 +1,6 @@
 package com.ngonim.weather.presentation.weather
 
+import SettingsPage
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -13,8 +14,10 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.NotificationsActive
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.outlined.LocationOn
 import androidx.compose.material.icons.outlined.NotificationsActive
+import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -51,6 +54,11 @@ class MainActivity : ComponentActivity() {
                 title = "Alerts",
                 selectedIcon = Icons.Filled.NotificationsActive,
                 unSelectedIcon = Icons.Outlined.NotificationsActive
+            ),
+            TabItem(
+                title = "Settings",
+                selectedIcon = Icons.Filled.Settings,
+                unSelectedIcon = Icons.Outlined.Settings
             ))
         setContent {
             WeatherTheme {
@@ -111,6 +119,13 @@ class MainActivity : ComponentActivity() {
                                     "Alerts" -> {
                                         Column(modifier = Modifier.fillMaxSize()) {WeatherAlertsPage(viewModel) }
                                     }
+
+                                    "Settings" -> {
+                                        Column(modifier = Modifier.fillMaxSize()) {
+                                            SettingsPage()
+                                        }
+                                    }
+
                                 }
                             }
                         }

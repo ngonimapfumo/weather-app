@@ -1,6 +1,7 @@
 package com.ngonim.weather.presentation.composables.alerts
 
 import AlertsDetails
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -26,16 +27,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
-import com.ngonim.weather.data.model.GetAlertsResponse
 import com.ngonim.weather.data.util.NetworkResponse
-import com.ngonim.weather.presentation.composables.current.WeatherDetails
 import com.ngonim.weather.presentation.weather.WeatherViewModel
 
 @Composable
-fun WeatherAlertsPage(viewModel: WeatherViewModel?){
+fun WeatherAlertsPage(viewModel: WeatherViewModel?) {
+    val context = LocalContext.current
     var place by remember {
         mutableStateOf("")
     }
@@ -107,7 +108,15 @@ fun WeatherAlertsPage(viewModel: WeatherViewModel?){
         }
 
         is NetworkResponse.Success -> {
-            AlertsDetails(result.data)
+            if (result.data.alerts?.alert?.size == 0) {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) { Text(text ="No alerts found") }
+            } else {
+                AlertsDetails(result.data)
+            }
+
         }
 
         null -> {}
