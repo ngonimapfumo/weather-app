@@ -1,4 +1,4 @@
-package com.ngonim.weather.presentation.composables.current
+package com.ngonim.weather.presentation.pages.current
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

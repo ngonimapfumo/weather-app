@@ -1,5 +1,6 @@
-package com.ngonim.weather.presentation.composables.current
+package com.ngonim.weather.presentation.pages.alerts
 
+import AlertsDetails
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -25,22 +26,20 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.ngonim.weather.data.model.GetCurrentWeatherResponse
-import com.ngonim.weather.data.model.GetCurrentWeatherResponse.Location
 import com.ngonim.weather.data.util.NetworkResponse
 import com.ngonim.weather.presentation.weather.WeatherViewModel
 
-
 @Composable
-fun WeatherPage(viewModel: WeatherViewModel?) {
-    var city by remember {
+fun WeatherAlertsPage(viewModel: WeatherViewModel?) {
+    val context = LocalContext.current
+    var place by remember {
         mutableStateOf("")
     }
-    val weatherResult = viewModel?.weatherResult?.observeAsState()
+    val weatherAlertResult = viewModel?.weatherAlertsResult?.observeAsState()
     val keyboardController = LocalSoftwareKeyboardController.current
 
     Column(
@@ -64,18 +63,18 @@ fun WeatherPage(viewModel: WeatherViewModel?) {
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
                 keyboardActions = KeyboardActions(onSearch = {
-                    viewModel?.fetchWeather(city)
+                    viewModel?.getAlerts(place)
                     keyboardController?.hide()
                 }),
-                value = city,
+                value = place,
                 onValueChange = {
-                    city = it
+                    place = it
                 }, label = {
                     Text("Search for any location")
                 }
             )
             IconButton(onClick = {
-                viewModel?.fetchWeather(city)
+                viewModel?.getAlerts(place)
                 keyboardController?.hide()
             }) {
                 Icon(
@@ -85,55 +84,42 @@ fun WeatherPage(viewModel: WeatherViewModel?) {
             }
 
         }
-        when (val result = weatherResult?.value) {
-            is NetworkResponse.Error -> {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) { Text(text = result.message) }
 
-            }
-
-            NetworkResponse.Loading -> {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    CircularProgressIndicator()
-                }
-
-            }
-
-            is NetworkResponse.Success -> {
-                WeatherDetails(data = result.data)
-            }
-
-            null -> {}
-        }
     }
-}
-@Preview
-@Composable
-fun WeatherPagePreview1() {
-  val viewModel: WeatherViewModel? = null
-  WeatherPage(viewModel)
-}
 
-@Preview
-@Composable
-fun WeatherPagePreview() {
-    val data = GetCurrentWeatherResponse(
-        current = null,
-        location = Location(
-            name = "London",
-            country = "United Kingdom",
-            lat = 51.52,
-            lon = -0.11, localtime = "2023-11-22 10:30",
-            localtimeEpoch = 1699981800,
-            region = "City of London, Greater London",
-            tzId = "Europe/London"
-        )
-    )
-    WeatherDetails(data = data)
-}
+    when (val result = weatherAlertResult?.value) {
+        is NetworkResponse.Error -> {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) { Text(text = result.message) }
 
+        }
+
+        NetworkResponse.Loading -> {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator()
+            }
+
+        }
+
+        is NetworkResponse.Success -> {
+            if (result.data.alerts?.alert?.size == 0) {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) { Text(text ="No alerts found") }
+            } else {
+                AlertsDetails(result.data)
+            }
+
+        }
+
+        null -> {}
+    }
+
+
+}
