@@ -1,46 +1,30 @@
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.*
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ngonim.weather.data.model.GetAlertsResponse
 
 @Composable
 fun AlertsDetails(data: GetAlertsResponse) {
 
-    val alerts = listOf(
-        /*Alert(
-            icon = "🌊",
-            title = ss.toString(),
-            severity = severity.toString(),
-            severityColor = Color(0xFFF97316), // Orange
-            valid = "Aug 24, 15:49 – Aug 25, 20:00",
-            description = "Dangerous rip currents. Life-threatening swimming and surfing conditions expected. Stay out of the surf.",
-            areas = "Kings (Brooklyn); Southwest Suffolk; Southeast Suffolk; Southern Queens; Southern Nassau",
-            instruction = "If caught in a rip current, relax and float. Do not swim against the current. Swim parallel to the shore or signal for help."
-        ),
-        Alert(
-            icon = "🌊",
-            title = "Rip Current Statement",
-            severity = severity.toString(),
-            severityColor = Color(0xFFF97316),
-            valid = "Aug 25, 02:15 – Aug 25, 18:00",
-            description = "Life-threatening rip currents likely for all people entering the surf zone. Localized beach erosion possible.",
-            areas = "Kings (Brooklyn); Southwest Suffolk; Southeast Suffolk; Southern Queens; Southern Nassau",
-            instruction = "Always swim near a lifeguard. If caught in a rip current, remain calm, float, and signal for help."
-        )*/
-
-        data.alerts?.alert
-    )
-
+    val alerts = listOf(data.alerts?.alert)
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -61,33 +45,38 @@ fun AlertsDetails(data: GetAlertsResponse) {
 
             }
         }
-
-        /*Button(
-            onClick = { },
-            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFE5E7EB)),
-            modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(12.dp)
-        ) {
-            Text("View Past Alerts", color = Color.DarkGray)
-        }*/
     }
 }
 
 @Composable
 fun AlertCard(alert: List<GetAlertsResponse.Alerts.Alert?>?) {
-    var headline: String?= null
-    var severity: String?= null
-    var instruction: String?= null
-    var valid: String?= null
-    var event: String?= null
-    var areas: String?= null
+    var headline: String? = null
+    var severity: String? = null
+    var instruction: String? = null
+    var valid: String? = null
+    var event: String? = null
+    var areas: String? = null
+    var colors: Color = Color.White
+    val red = Color(0xFFDC2626)
+    val orange = Color(0xFFF97316)
+    val yellow = Color(0xFFFACC15)
+
+
+
+
     alert?.forEach {
-        headline =  it?.headline
+        headline = it?.headline
         severity = it?.severity
         instruction = it?.instruction
         valid = it?.effective
         event = it?.event
         areas = it?.areas
+         colors = when (severity) {
+            "Severe" -> red
+            "Moderate" -> orange
+            "Minor" -> yellow
+            else -> Color.White
+        }
     }
 
     Card(
@@ -95,11 +84,19 @@ fun AlertCard(alert: List<GetAlertsResponse.Alerts.Alert?>?) {
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
-        Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+        Column(
+            modifier = Modifier.padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(6.dp)
+        ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(event.toString(), fontWeight = FontWeight.SemiBold, fontSize = 18.sp, modifier = Modifier.weight(1f))
+                Text(
+                    event.toString(),
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 18.sp,
+                    modifier = Modifier.weight(1f)
+                )
                 Surface(
-                    color = Color(0xFFF97316),
+                    color = colors,
                     shape = RoundedCornerShape(8.dp)
                 ) {
                     Text(
