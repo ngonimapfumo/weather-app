@@ -1,5 +1,6 @@
 package com.ngonim.weather.presentation.pages.current
 
+import android.opengl.Visibility
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -21,7 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun WeatherStats(windSpeed:String, humidity:String, precipitation:String, uvIndex:String) {
+fun WeatherStats(windSpeed:String, humidity:String, precipitation:String, uvIndex:String , windDir: String, visibility: String) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -44,13 +45,22 @@ fun WeatherStats(windSpeed:String, humidity:String, precipitation:String, uvInde
             WeatherStatCard(value = precipitation, label = "Precipitation", modifier = Modifier.weight(1f))
             WeatherStatCard(value = uvIndex, label = "UV Index", modifier = Modifier.weight(1f))
         }
+
+        Spacer(modifier = Modifier.height(12.dp))
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            WeatherStatCard(value = windDir, label = "Wind direction", modifier = Modifier.weight(1f))
+            WeatherStatCard(value = "$visibility km", label = "Visibility", modifier = Modifier.weight(1f))
+        }
     }
 }
 
 @Preview
 @Composable
 fun WeatherStatsPreview() {
-    WeatherStats("5.8", "100", "0.0", "0")
+    WeatherStats("5.8", "100", "0.0", "0", "North", "5")
 }
 @Composable
 fun WeatherStatCard(value: String, label: String, modifier: Modifier = Modifier) {

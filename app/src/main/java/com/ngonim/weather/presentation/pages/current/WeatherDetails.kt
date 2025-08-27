@@ -9,6 +9,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -23,6 +26,8 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.ngonim.weather.data.model.GetCurrentWeatherResponse
 import com.ngonim.weather.data.model.GetCurrentWeatherResponse.Location
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 
 @Composable
@@ -65,6 +70,13 @@ fun WeatherDetails(data: GetCurrentWeatherResponse) {
                 color = Color.Gray,
                 fontWeight = FontWeight.Light
             )
+
+            val inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+            val outputFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy, hh:mm a")
+            val dateTime = LocalDateTime.parse(data.location?.localtime.toString(), inputFormatter)
+            val formatted = dateTime.format(outputFormatter)
+
+            Text(text = formatted )
         }
          // Spacer(modifier = Modifier.height(16.dp))
 
@@ -96,7 +108,27 @@ fun WeatherDetails(data: GetCurrentWeatherResponse) {
         )
 
         Spacer(modifier = Modifier.padding(8.dp))
-        WeatherStats(data.current?.windKph.toString(), data.current?.humidity.toString(), data.current?.precipIn.toString(), data.current?.uv.toString())
+        WeatherStats(
+            data.current?.windKph.toString(),
+            data.current?.humidity.toString(),
+            data.current?.precipIn.toString(),
+            data.current?.uv.toString(),
+             data.current?.windDir.toString(),
+            data.current?.visKm.toString())
+
+        Button(onClick = {},
+            elevation = ButtonDefaults.buttonElevation(
+                defaultElevation = 8.dp,
+                pressedElevation = 8.dp,
+                focusedElevation = 8.dp,
+                hoveredElevation = 8.dp,),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)) {
+
+            Text(text = "More Information")
+
+        }
 
     }
 }

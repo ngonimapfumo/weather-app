@@ -1,5 +1,6 @@
 package com.ngonim.weather.presentation.pages.current
 
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -7,9 +8,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.CircularProgressIndicator
@@ -42,11 +45,20 @@ fun WeatherPage(viewModel: WeatherViewModel?) {
     }
     val weatherResult = viewModel?.weatherResult?.observeAsState()
     val keyboardController = LocalSoftwareKeyboardController.current
+    val scrollState = rememberScrollState()
+
+
+    /*Surface(modifier = Modifier.fillMaxSize())
+    {
+        Image(painter = painterResource(id = R.drawable.day1), contentDescription = "Background", contentScale = ContentScale.FillHeight,)}*/
+
+
 
     Column(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(8.dp),
+            .fillMaxSize()
+            .padding(8.dp)
+            .verticalScroll(scrollState),
         horizontalAlignment = Alignment.CenterHorizontally
     )
     {
@@ -88,7 +100,8 @@ fun WeatherPage(viewModel: WeatherViewModel?) {
         when (val result = weatherResult?.value) {
             is NetworkResponse.Error -> {
                 Box(
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier.fillMaxWidth()
+                        .weight(1f),
                     contentAlignment = Alignment.Center
                 ) { Text(text = result.message) }
 
@@ -96,8 +109,9 @@ fun WeatherPage(viewModel: WeatherViewModel?) {
 
             NetworkResponse.Loading -> {
                 Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
+                    modifier = Modifier.fillMaxWidth()
+                        .weight(1f),
+                    contentAlignment = Alignment.Center,
                 ) {
                     CircularProgressIndicator()
                 }
