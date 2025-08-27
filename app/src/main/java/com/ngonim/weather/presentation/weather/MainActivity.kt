@@ -58,11 +58,6 @@ class MainActivity : ComponentActivity() {
                 selectedIcon = Icons.Filled.NotificationsActive,
                 unSelectedIcon = Icons.Outlined.NotificationsActive
             ))
-            /*TabItem(
-                title = "Settings",
-                selectedIcon = Icons.Filled.Settings,
-                unSelectedIcon = Icons.Outlined.Settings
-            ))*/
         setContent {
             WeatherTheme(dynamicColor = true) {
                 Scaffold(
@@ -122,12 +117,6 @@ class MainActivity : ComponentActivity() {
                                     "Alerts" -> {
                                         Column(modifier = Modifier.fillMaxSize()) {WeatherAlertsPage(viewModel) }
                                     }
-
-                                    /*"Settings" -> {
-                                        Column(modifier = Modifier.fillMaxSize()) {
-                                            SettingsPage()
-                                        }
-                                    }*/
 
                                 }
                             }

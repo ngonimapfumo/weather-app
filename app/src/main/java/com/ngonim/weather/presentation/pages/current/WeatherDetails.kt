@@ -1,5 +1,7 @@
 package com.ngonim.weather.presentation.pages.current
 
+import WeatherAlertDialog
+import android.app.AlertDialog
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -9,14 +11,20 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -24,6 +32,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.ngonim.weather.data.model.GetCurrentWeatherResponse
 import com.ngonim.weather.data.model.GetCurrentWeatherResponse.Location
 import java.time.LocalDateTime
@@ -32,6 +41,7 @@ import java.time.format.DateTimeFormatter
 
 @Composable
 fun WeatherDetails(data: GetCurrentWeatherResponse) {
+    var showDialog by remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier
@@ -116,7 +126,7 @@ fun WeatherDetails(data: GetCurrentWeatherResponse) {
              data.current?.windDir.toString(),
             data.current?.visKm.toString())
 
-        Button(onClick = {},
+        Button(onClick = { showDialog = true},
             elevation = ButtonDefaults.buttonElevation(
                 defaultElevation = 8.dp,
                 pressedElevation = 8.dp,
@@ -127,6 +137,14 @@ fun WeatherDetails(data: GetCurrentWeatherResponse) {
                 .padding(16.dp)) {
 
             Text(text = "More Information")
+            if (showDialog) {
+                WeatherAlertDialog(onDismiss = { showDialog = false },
+                    location = data.location?.name.toString(),
+                    temperature = data.current?.tempF.toString(),
+                    condition = data.current?.humidity.toString(),
+                    humidity = data.current?.humidity.toString(),
+                    wind = data.current?.windKph.toString())
+            }
 
         }
 
