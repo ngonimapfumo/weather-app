@@ -1,6 +1,5 @@
-package com.ngonim.weather.presentation.pages.current
+package com.ngonim.weather.presentation.pages.weather.current
 
-import android.opengl.Visibility
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row

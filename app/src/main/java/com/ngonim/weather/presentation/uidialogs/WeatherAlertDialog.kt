@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.ngonim.weather.util.GenUtil.formatDate
 
 
 @Composable
@@ -18,9 +19,9 @@ fun WeatherAlertDialog(
     onDismiss: () -> Unit,
     location: String,
     temperature: String,
-    condition: String,
-    humidity: String,
-    wind: String
+    heatIndex: String,
+    pressure: String,
+    lastUpdated: String
 ) {
     AlertDialog(
         onDismissRequest = { onDismiss() },
@@ -48,22 +49,22 @@ fun WeatherAlertDialog(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Text("Condition:")
-                    Text(condition)
+                    Text("Pressure:")
+                    Text("$pressure mbar")
                 }
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Text("Humidity:")
-                    Text(humidity)
+                    Text("Heat Index:")
+                    Text("$heatIndex °C")
                 }
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Text("Wind:")
-                    Text(wind)
+                    Text("Last updated:")
+                    Text(formatDate(lastUpdated))
                 }
             }
         },
@@ -78,9 +79,9 @@ fun WeatherAlertDialogPreview() {
         onDismiss = {},
         location = "New York",
         temperature = "25",
-        condition = "Sunny",
-        humidity = "60%",
-        wind = "10 km/h"
+        pressure = "1013 mbar",
+        heatIndex = "50",
+        lastUpdated = "10:30 AM"
     )
 }
 

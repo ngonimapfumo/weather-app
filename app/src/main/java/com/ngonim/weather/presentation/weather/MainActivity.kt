@@ -1,12 +1,9 @@
 package com.ngonim.weather.presentation.weather
 
-import SettingsPage
-import android.app.UiModeManager.MODE_NIGHT_YES
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,10 +13,8 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.NotificationsActive
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.outlined.LocationOn
 import androidx.compose.material.icons.outlined.NotificationsActive
-import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -36,11 +31,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.ViewModelProvider
-import com.ngonim.weather.presentation.pages.alerts.WeatherAlertsPage
-import com.ngonim.weather.presentation.pages.current.WeatherPage
+import com.ngonim.weather.presentation.pages.weather.alerts.WeatherAlertsPage
+import com.ngonim.weather.presentation.pages.weather.current.WeatherPage
 import com.ngonim.weather.presentation.model.TabItem
 import com.ngonim.weather.presentation.theme.WeatherTheme
-import com.ngonim.weather.util.ConfigStore
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

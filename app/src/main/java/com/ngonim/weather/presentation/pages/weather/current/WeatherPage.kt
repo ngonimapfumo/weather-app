@@ -1,6 +1,6 @@
-package com.ngonim.weather.presentation.pages.alerts
+package com.ngonim.weather.presentation.pages.weather.current
 
-import AlertsDetails
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -8,9 +8,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.CircularProgressIndicator
@@ -26,26 +28,37 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.ngonim.weather.data.model.GetCurrentWeatherResponse
+import com.ngonim.weather.data.model.GetCurrentWeatherResponse.Location
 import com.ngonim.weather.data.util.NetworkResponse
 import com.ngonim.weather.presentation.weather.WeatherViewModel
 
+
 @Composable
-fun WeatherAlertsPage(viewModel: WeatherViewModel?) {
-    val context = LocalContext.current
-    var place by remember {
+fun WeatherPage(viewModel: WeatherViewModel?) {
+    var city by remember {
         mutableStateOf("")
     }
-    val weatherAlertResult = viewModel?.weatherAlertsResult?.observeAsState()
+    val weatherResult = viewModel?.weatherResult?.observeAsState()
     val keyboardController = LocalSoftwareKeyboardController.current
+    val scrollState = rememberScrollState()
+
+
+    /*Surface(modifier = Modifier.fillMaxSize())
+    {
+        Image(painter = painterResource(id = R.drawable.day1), contentDescription = "Background", contentScale = ContentScale.FillHeight,)}*/
+
+
 
     Column(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(8.dp),
+            .fillMaxSize()
+            .padding(8.dp)
+            .verticalScroll(scrollState),
         horizontalAlignment = Alignment.CenterHorizontally
     )
     {
@@ -63,18 +76,18 @@ fun WeatherAlertsPage(viewModel: WeatherViewModel?) {
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
                 keyboardActions = KeyboardActions(onSearch = {
-                    viewModel?.getAlerts(place)
+                    viewModel?.fetchWeather(city)
                     keyboardController?.hide()
                 }),
-                value = place,
+                value = city,
                 onValueChange = {
-                    place = it
+                    city = it
                 }, label = {
                     Text("Search for any location")
                 }
             )
             IconButton(onClick = {
-                viewModel?.getAlerts(place)
+                viewModel?.fetchWeather(city)
                 keyboardController?.hide()
             }) {
                 Icon(
@@ -84,42 +97,57 @@ fun WeatherAlertsPage(viewModel: WeatherViewModel?) {
             }
 
         }
-
-    }
-
-    when (val result = weatherAlertResult?.value) {
-        is NetworkResponse.Error -> {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) { Text(text = result.message) }
-
-        }
-
-        NetworkResponse.Loading -> {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                CircularProgressIndicator()
-            }
-
-        }
-
-        is NetworkResponse.Success -> {
-            if (result.data.alerts?.alert?.size == 0) {
+        when (val result = weatherResult?.value) {
+            is NetworkResponse.Error -> {
                 Box(
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier.fillMaxWidth()
+                        .weight(1f),
                     contentAlignment = Alignment.Center
-                ) { Text(text ="No alerts found") }
-            } else {
-                AlertsDetails(result.data)
+                ) { Text(text = result.message) }
+
             }
 
+            NetworkResponse.Loading -> {
+                Box(
+                    modifier = Modifier.fillMaxWidth()
+                        .weight(1f),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    CircularProgressIndicator()
+                }
+
+            }
+
+            is NetworkResponse.Success -> {
+                WeatherDetails(data = result.data)
+            }
+
+            null -> {}
         }
-
-        null -> {}
     }
-
-
 }
+@Preview
+@Composable
+fun WeatherPagePreview1() {
+  val viewModel: WeatherViewModel? = null
+  WeatherPage(viewModel)
+}
+
+@Preview
+@Composable
+fun WeatherPagePreview() {
+    val data = GetCurrentWeatherResponse(
+        current = null,
+        location = Location(
+            name = "London",
+            country = "United Kingdom",
+            lat = 51.52,
+            lon = -0.11, localtime = "2023-11-22 10:30",
+            localtimeEpoch = 1699981800,
+            region = "City of London, Greater London",
+            tzId = "Europe/London"
+        )
+    )
+    WeatherDetails(data = data)
+}
+
