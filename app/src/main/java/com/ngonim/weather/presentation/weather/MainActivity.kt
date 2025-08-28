@@ -34,7 +34,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.ngonim.weather.presentation.model.TabItem
 import com.ngonim.weather.presentation.pages.weather.alerts.WeatherAlertsPage
 import com.ngonim.weather.presentation.pages.weather.current.WeatherPage
-import com.ngonim.weather.presentation.theme.WeatherTheme
+import com.ngonim.weather.theme.WeatherTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

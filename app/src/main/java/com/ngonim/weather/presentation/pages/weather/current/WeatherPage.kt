@@ -1,8 +1,6 @@
 package com.ngonim.weather.presentation.pages.weather.current
 
 
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,7 +21,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
@@ -31,7 +28,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
@@ -40,7 +36,6 @@ import com.ngonim.weather.data.model.GetCurrentWeatherResponse
 import com.ngonim.weather.data.model.GetCurrentWeatherResponse.Location
 import com.ngonim.weather.data.util.NetworkResponse
 import com.ngonim.weather.presentation.weather.WeatherViewModel
-import com.ngonim.weather.util.GenUtil.getCurrentLocation
 
 
 @Composable
@@ -48,6 +43,7 @@ fun WeatherPage(viewModel: WeatherViewModel?) {
     var city by remember {
         mutableStateOf("")
     }
+
     val weatherResult = viewModel?.weatherResult?.observeAsState()
     val keyboardController = LocalSoftwareKeyboardController.current
     val scrollState = rememberScrollState()
