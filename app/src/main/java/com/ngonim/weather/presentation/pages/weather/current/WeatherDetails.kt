@@ -113,7 +113,7 @@ fun WeatherDetails(data: GetCurrentWeatherResponse) {
         WeatherStats(
             data.current?.windKph.toString(),
             data.current?.humidity.toString(),
-            data.current?.precipIn.toString(),
+            data.current?.precipMm.toString(),
             data.current?.uv.toString(),
              data.current?.windDir.toString(),
             data.current?.visKm.toString())

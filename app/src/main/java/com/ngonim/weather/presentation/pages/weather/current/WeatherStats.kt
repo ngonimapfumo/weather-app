@@ -31,7 +31,7 @@ fun WeatherStats(windSpeed:String, humidity:String, precipitation:String, uvInde
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            WeatherStatCard(value = windSpeed, label = "Wind Speed", modifier = Modifier.weight(1f))
+            WeatherStatCard(value = "$windSpeed kph", label = "Wind Speed", modifier = Modifier.weight(1f))
             WeatherStatCard(value = "$humidity%", label = "Humidity", modifier = Modifier.weight(1f))
         }
 
@@ -41,7 +41,7 @@ fun WeatherStats(windSpeed:String, humidity:String, precipitation:String, uvInde
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            WeatherStatCard(value = precipitation, label = "Precipitation", modifier = Modifier.weight(1f))
+            WeatherStatCard(value = "$precipitation mm", label = "Precipitation", modifier = Modifier.weight(1f))
             WeatherStatCard(value = uvIndex, label = "UV Index", modifier = Modifier.weight(1f))
         }
 

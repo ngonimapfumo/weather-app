@@ -89,6 +89,7 @@ fun WeatherPage(viewModel: WeatherViewModel?) {
             } else {
                 Text("Fetching location…")
             }}*/
+
         Row(
             modifier = Modifier
                 .fillMaxWidth()
