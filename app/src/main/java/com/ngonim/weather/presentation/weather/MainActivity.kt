@@ -31,9 +31,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.ViewModelProvider
+import com.ngonim.weather.presentation.model.TabItem
 import com.ngonim.weather.presentation.pages.weather.alerts.WeatherAlertsPage
 import com.ngonim.weather.presentation.pages.weather.current.WeatherPage
-import com.ngonim.weather.presentation.model.TabItem
 import com.ngonim.weather.presentation.theme.WeatherTheme
 
 class MainActivity : ComponentActivity() {
