@@ -23,7 +23,7 @@ Weather app Jetpack Compose
 
 - [Technologies Used](#technologies-used)
 - [Kotlin](https://kotlinlang.org/)
-- Compose
+- [Jetpack Compose UI](https://developer.android.com/compose)
 - Coil
 - Retrofit
 - [Setup](#setup)
