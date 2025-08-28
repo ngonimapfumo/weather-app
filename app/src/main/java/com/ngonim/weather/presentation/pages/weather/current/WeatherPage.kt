@@ -80,8 +80,7 @@ fun WeatherPage(viewModel: WeatherViewModel?) {
     )
     {
 
-
-       /* if (!hasPermission) {
+       /*if (!hasPermission) {
             Text("Location permission not granted")
         } else {
             if (coordinates != null) {
@@ -90,14 +89,6 @@ fun WeatherPage(viewModel: WeatherViewModel?) {
             } else {
                 Text("Fetching location…")
             }}*/
-
-
-
-
-
-
-
-
         Row(
             modifier = Modifier
                 .fillMaxWidth()
