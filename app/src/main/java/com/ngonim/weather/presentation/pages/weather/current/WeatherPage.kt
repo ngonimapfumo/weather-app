@@ -91,9 +91,8 @@ fun WeatherPage(viewModel: WeatherViewModel?) {
                 hasFetched = true
                 }
 
-            } else {
-                Text("Fetching location…")
-            }}
+            } //else {Text("Fetching location…")}
+        }
 
 
 

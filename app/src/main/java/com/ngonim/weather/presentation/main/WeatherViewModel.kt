@@ -20,15 +20,23 @@ class WeatherViewModel : ViewModel() {
     private val _weatherAlertsResult = MutableLiveData<NetworkResponse<GetAlertsResponse>>()
     val weatherAlertsResult: LiveData<NetworkResponse<GetAlertsResponse>> = _weatherAlertsResult
 
+    private val cache = mutableMapOf<String, GetCurrentWeatherResponse>()
 
-    fun fetchWeather(city: String) {
+    fun fetchWeather(query: String) {
+        val cached = cache[query]
         _weatherResult.value = NetworkResponse.Loading
         viewModelScope.launch {
             try {
-                val response = weatherService.getWeather(Constants.API_KEY, city, "yes")
+                val response = weatherService.getWeather(Constants.API_KEY, query, "yes")
                 if (response.isSuccessful) {
                     response.body()?.let {
-                        _weatherResult.value = NetworkResponse.Success(it)
+                        if (cached != null) {
+                            _weatherResult.value = NetworkResponse.Success(cached)
+                        }
+                        else {
+                            _weatherResult.value = NetworkResponse.Success(it)
+                        }
+
                     }
                 } else {
                     _weatherResult.value = NetworkResponse.Error("Error fetching weather")
