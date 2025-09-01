@@ -1,4 +1,4 @@
-package com.ngonim.weather.presentation.weather
+package com.ngonim.weather.presentation.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

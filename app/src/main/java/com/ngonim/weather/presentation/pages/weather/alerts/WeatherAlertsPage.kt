@@ -31,7 +31,7 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import com.ngonim.weather.data.util.NetworkResponse
-import com.ngonim.weather.presentation.weather.WeatherViewModel
+import com.ngonim.weather.presentation.main.WeatherViewModel
 
 @Composable
 fun WeatherAlertsPage(viewModel: WeatherViewModel?) {
