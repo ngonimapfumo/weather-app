@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ngonim.weather.data.model.GetAlertsResponse
 import com.ngonim.weather.data.model.GetCurrentWeatherResponse
+import com.ngonim.weather.data.model.GetForecastResponse
 import com.ngonim.weather.data.remote.network.api.RetrofitInstance
 import com.ngonim.weather.data.util.NetworkResponse
 import com.ngonim.weather.util.Constants
@@ -19,6 +20,9 @@ class WeatherViewModel : ViewModel() {
 
     private val _weatherAlertsResult = MutableLiveData<NetworkResponse<GetAlertsResponse>>()
     val weatherAlertsResult: LiveData<NetworkResponse<GetAlertsResponse>> = _weatherAlertsResult
+
+    private val _weatherForecastResult = MutableLiveData<NetworkResponse<GetForecastResponse>>()
+    val weatherForecastResult: LiveData<NetworkResponse<GetForecastResponse>> = _weatherForecastResult
 
     private val cache = mutableMapOf<String, GetCurrentWeatherResponse>()
 
@@ -61,6 +65,24 @@ class WeatherViewModel : ViewModel() {
                 }
             }catch (e: Exception){
                 Log.d("TAG:Exception", "fetchAlerts: ${e.message}")
+            }
+        }
+    }
+
+    fun getForecast(query: String) {
+        _weatherForecastResult.value = NetworkResponse.Loading
+        viewModelScope.launch {
+            try {
+                val response = weatherService.getForecast(Constants.API_KEY, query, 7, "no", "no")
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        _weatherForecastResult.value = NetworkResponse.Success(it)
+                    }
+                } else {
+                    _weatherForecastResult.value = NetworkResponse.Error("Error fetching forecast")
+                }
+            } catch (e: Exception) {
+                Log.d("TAG:Exception", "fetchForecast: ${e.message}")
             }
         }
     }
