@@ -13,8 +13,10 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.NotificationsActive
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.LocationOn
 import androidx.compose.material.icons.outlined.NotificationsActive
+import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -34,6 +36,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.ngonim.weather.presentation.model.TabItem
 import com.ngonim.weather.presentation.pages.weather.alerts.WeatherAlertsPage
 import com.ngonim.weather.presentation.pages.weather.current.WeatherPage
+import com.ngonim.weather.presentation.pages.weather.forecast.WeatherForecastPage
 import com.ngonim.weather.theme.WeatherTheme
 
 class MainActivity : ComponentActivity() {
@@ -48,10 +51,17 @@ class MainActivity : ComponentActivity() {
                 unSelectedIcon = Icons.Outlined.LocationOn
             ),
             TabItem(
+                title = "Forecast",
+                selectedIcon = Icons.Filled.Search,
+                unSelectedIcon = Icons.Outlined.Search
+            ),
+            TabItem(
                 title = "Alerts",
                 selectedIcon = Icons.Filled.NotificationsActive,
                 unSelectedIcon = Icons.Outlined.NotificationsActive
-            ))
+            )
+
+            )
         setContent {
             WeatherTheme(dynamicColor = true) {
                 Scaffold(
@@ -108,6 +118,12 @@ class MainActivity : ComponentActivity() {
                                         Column(modifier = Modifier.fillMaxSize()) {WeatherPage(viewModel)}
 
                                     }
+
+                                    "Forecast" -> {
+                                        Column(modifier = Modifier.fillMaxSize()) {WeatherForecastPage(viewModel)}
+                                    }
+
+
                                     "Alerts" -> {
                                         Column(modifier = Modifier.fillMaxSize()) {WeatherAlertsPage(viewModel) }
                                     }

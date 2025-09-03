@@ -30,9 +30,9 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.ngonim.weather.data.model.GetCurrentWeatherResponse
 import com.ngonim.weather.data.model.GetCurrentWeatherResponse.Location
+import com.ngonim.weather.data.model.GetForecastResponse
+import com.ngonim.weather.presentation.pages.weather.forecast.ForecastDetails
 import com.ngonim.weather.util.GenUtil.formatDate
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 
 @Composable
@@ -80,7 +80,7 @@ fun WeatherDetails(data: GetCurrentWeatherResponse) {
 
             Text(text = formatDate(data.location?.localtime.toString()))
         }
-         // Spacer(modifier = Modifier.height(16.dp))
+        // Spacer(modifier = Modifier.height(16.dp))
 
         Row {
             Text(
@@ -90,7 +90,7 @@ fun WeatherDetails(data: GetCurrentWeatherResponse) {
                 fontStyle = FontStyle.Normal,
                 textAlign = TextAlign.Center
             )
-            Text(text = "°C",fontWeight = FontWeight.SemiBold)
+            Text(text = "°C", fontWeight = FontWeight.SemiBold)
 
 
         }
@@ -108,34 +108,44 @@ fun WeatherDetails(data: GetCurrentWeatherResponse) {
                 .replace("64x64", "128x128"),
             contentDescription = "Weather Icon"
         )
-
         Spacer(modifier = Modifier.padding(8.dp))
         WeatherStats(
             data.current?.windKph.toString(),
             data.current?.humidity.toString(),
             data.current?.precipMm.toString(),
             data.current?.uv.toString(),
-             data.current?.windDir.toString(),
-            data.current?.visKm.toString())
+            data.current?.windDir.toString(),
+            data.current?.visKm.toString()
+        )
 
-        Button(onClick = { showDialog = true},
+        Spacer(modifier = Modifier.padding(8.dp))
+       // val forecast = listOf<GetForecastResponse.Forecast.Forecastday>()
+       // ForecastDetails(listOf<GetForecastResponse.Forecast.Forecastday>())
+
+        Spacer(modifier = Modifier.padding(8.dp))
+        Button(
+            onClick = { showDialog = true },
             elevation = ButtonDefaults.buttonElevation(
                 defaultElevation = 8.dp,
                 pressedElevation = 8.dp,
                 focusedElevation = 8.dp,
-                hoveredElevation = 8.dp,),
+                hoveredElevation = 8.dp,
+            ),
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp)) {
+                .padding(16.dp)
+        ) {
 
             Text(text = "More Information")
             if (showDialog) {
-                WeatherAlertDialog(onDismiss = { showDialog = false },
+                WeatherAlertDialog(
+                    onDismiss = { showDialog = false },
                     location = data.location?.name.toString(),
                     temperature = data.current?.tempF.toString(),
                     pressure = data.current?.pressureMb.toString(),
-                   heatIndex =  data.current?.heatindexC.toString(),
-                    lastUpdated = data.current?.lastUpdated.toString())
+                    heatIndex = data.current?.heatindexC.toString(),
+                    lastUpdated = data.current?.lastUpdated.toString()
+                )
             }
 
         }

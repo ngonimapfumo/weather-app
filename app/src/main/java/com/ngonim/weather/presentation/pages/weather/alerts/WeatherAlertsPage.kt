@@ -35,7 +35,6 @@ import com.ngonim.weather.presentation.main.WeatherViewModel
 
 @Composable
 fun WeatherAlertsPage(viewModel: WeatherViewModel?) {
-    val context = LocalContext.current
     var place by remember {
         mutableStateOf("")
     }
