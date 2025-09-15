@@ -1,6 +1,7 @@
 package com.ngonim.weather.presentation.pages.weather.current
 
 import WeatherAlertDialog
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -21,6 +22,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -36,7 +38,10 @@ import com.ngonim.weather.util.GenUtil.formatDate
 
 
 @Composable
-fun WeatherDetails(data: GetCurrentWeatherResponse) {
+fun WeatherDetails(
+    current: GetCurrentWeatherResponse,
+    forecast: GetForecastResponse?
+) {
     var showDialog by remember { mutableStateOf(false) }
 
     Column(
@@ -54,7 +59,7 @@ fun WeatherDetails(data: GetCurrentWeatherResponse) {
 
             Text(
                 modifier = Modifier.padding(start = 8.dp),
-                text = data.location?.name.toString(),
+                text = current.location?.name.toString(),
                 fontSize = 28.sp,
                 fontWeight = FontWeight.SemiBold
             )
@@ -67,24 +72,24 @@ fun WeatherDetails(data: GetCurrentWeatherResponse) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = data.location?.country.toString(),
+                text = current.location?.country.toString(),
                 fontWeight = FontWeight.Light
 
             )
             Text(
-                text = data.location?.region.toString(),
+                text = current.location?.region.toString(),
                 color = Color.Gray,
                 fontWeight = FontWeight.Light
             )
 
 
-            Text(text = formatDate(data.location?.localtime.toString()))
+            Text(text = formatDate(current.location?.localtime.toString()))
         }
         // Spacer(modifier = Modifier.height(16.dp))
 
         Row {
             Text(
-                text = data.current?.tempC.toString(),
+                text = current.current?.tempC.toString(),
                 fontSize = 56.sp,
                 fontWeight = FontWeight.SemiBold,
                 fontStyle = FontStyle.Normal,
@@ -96,7 +101,7 @@ fun WeatherDetails(data: GetCurrentWeatherResponse) {
         }
         Spacer(modifier = Modifier.height(16.dp))
         Text(
-            text = data.current?.condition?.text.toString(),
+            text = current.current?.condition?.text.toString(),
             fontSize = 18.sp,
             fontWeight = FontWeight.Light,
             fontStyle = FontStyle.Normal,
@@ -104,18 +109,22 @@ fun WeatherDetails(data: GetCurrentWeatherResponse) {
         )
         AsyncImage(
             modifier = Modifier.size(160.dp),
-            model = "https:${data.current?.condition?.icon}"
+            model = "https:${current.current?.condition?.icon}"
                 .replace("64x64", "128x128"),
             contentDescription = "Weather Icon"
         )
         Spacer(modifier = Modifier.padding(8.dp))
+
+
+        ForecastDetails(forecast?.forecast?.forecastday)
+
         WeatherStats(
-            data.current?.windKph.toString(),
-            data.current?.humidity.toString(),
-            data.current?.precipMm.toString(),
-            data.current?.uv.toString(),
-            data.current?.windDir.toString(),
-            data.current?.visKm.toString()
+            current.current?.windKph.toString(),
+            current.current?.humidity.toString(),
+            current.current?.precipMm.toString(),
+            current.current?.uv.toString(),
+            current.current?.windDir.toString(),
+            current.current?.visKm.toString()
         )
 
         Spacer(modifier = Modifier.padding(8.dp))
@@ -140,11 +149,11 @@ fun WeatherDetails(data: GetCurrentWeatherResponse) {
             if (showDialog) {
                 WeatherAlertDialog(
                     onDismiss = { showDialog = false },
-                    location = data.location?.name.toString(),
-                    temperature = data.current?.tempF.toString(),
-                    pressure = data.current?.pressureMb.toString(),
-                    heatIndex = data.current?.heatindexC.toString(),
-                    lastUpdated = data.current?.lastUpdated.toString()
+                    location = current.location?.name.toString(),
+                    temperature = current.current?.tempF.toString(),
+                    pressure = current.current?.pressureMb.toString(),
+                    heatIndex = current.current?.heatindexC.toString(),
+                    lastUpdated = current.current?.lastUpdated.toString()
                 )
             }
 
@@ -156,17 +165,53 @@ fun WeatherDetails(data: GetCurrentWeatherResponse) {
 @Preview
 @Composable
 fun WeatherDetailsPreview() {
-    val data = GetCurrentWeatherResponse(
-        current = null,
+    val current = GetCurrentWeatherResponse(
+        current = GetCurrentWeatherResponse.Current(
+            cloud = 0,
+            condition = GetCurrentWeatherResponse.Current.Condition(
+                code = 1000,
+                icon = "//cdn.weatherapi.com/weather/64x64/day/113.png",
+                text = "Sunny"
+            ),
+            dewpointC = 10.0,
+            dewpointF = 50.0,
+            feelslikeC = 25.0,
+            feelslikeF = 77.0,
+            gustKph = 10.0,
+            gustMph = 6.2,
+            heatindexC = 25.0,
+            heatindexF = 77.0,
+            humidity = 50,
+            isDay = 1,
+            lastUpdated = "2023-10-27 10:00",
+            lastUpdatedEpoch = 1698380400,
+            precipIn = 0.0,
+            precipMm = 0.0,
+            pressureIn = 30.0,
+            pressureMb = 1016.0,
+            tempC = 25.0,
+            tempF = 77.0,
+            uv = 5.0,
+            visKm = 10.0,
+            visMiles = 6.0,
+            windDegree = 180,
+            windDir = "S",
+            windKph = 5.0,
+            windMph = 3.1,
+            windchillC = 25.0,
+            windchillF = 77.0
+        ),
         location = Location(
-            name = "London",
-            country = "United Kingdom",
-            lat = 51.52,
-            lon = -0.11, localtime = "2023-11-22 10:30",
-            localtimeEpoch = 1699981800,
-            region = "City of London, Greater London",
-            tzId = "Europe/London"
+            country = "Country",
+            lat = 0.0,
+            localtime = "2023-10-27 10:30",
+            localtimeEpoch = 1698382200,
+            lon = 0.0,
+            name = "City Name",
+            region = "Region",
+            tzId = "TimezoneID"
         )
     )
-    WeatherDetails(data = data)
+    val forecast = null
+    WeatherDetails(current = current, forecast = forecast)
 }

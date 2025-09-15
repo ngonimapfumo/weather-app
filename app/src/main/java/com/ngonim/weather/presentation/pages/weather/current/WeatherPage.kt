@@ -1,7 +1,6 @@
 package com.ngonim.weather.presentation.pages.weather.current
 
 
-import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
@@ -41,7 +40,6 @@ import com.ngonim.weather.data.model.GetCurrentWeatherResponse
 import com.ngonim.weather.data.model.GetCurrentWeatherResponse.Location
 import com.ngonim.weather.data.util.NetworkResponse
 import com.ngonim.weather.presentation.main.WeatherViewModel
-import com.ngonim.weather.presentation.pages.weather.forecast.ForecastDetails
 import com.ngonim.weather.util.GenUtil.getCurrentLocation
 
 
@@ -52,6 +50,7 @@ fun WeatherPage(viewModel: WeatherViewModel?) {
     }
 
     val weatherResult = viewModel?.weatherResult?.observeAsState()
+    val forecastResult = viewModel?.weatherForecastResult?.observeAsState()
     val keyboardController = LocalSoftwareKeyboardController.current
     val scrollState = rememberScrollState()
     val context = LocalContext.current
@@ -89,7 +88,8 @@ fun WeatherPage(viewModel: WeatherViewModel?) {
             if (coordinates != null && !hasFetched) {
                 val coords = "${coordinates?.first},${coordinates?.second}"
                 LaunchedEffect(coords) {
-                viewModel?.fetchWeather(coords)
+                viewModel?.fetchWeather(query= coords)
+                viewModel?.getForecast(query = coords)
 
                 hasFetched = true
                 }
@@ -112,6 +112,7 @@ fun WeatherPage(viewModel: WeatherViewModel?) {
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
                 keyboardActions = KeyboardActions(onSearch = {
                     viewModel?.fetchWeather(city)
+                    viewModel?.getForecast(query = city)
                     keyboardController?.hide()
                 }),
                 value = city,
@@ -123,6 +124,7 @@ fun WeatherPage(viewModel: WeatherViewModel?) {
             )
             IconButton(onClick = {
                 viewModel?.fetchWeather(city)
+                viewModel?.getForecast(query = city)
                 keyboardController?.hide()
             }) {
                 Icon(
@@ -133,6 +135,7 @@ fun WeatherPage(viewModel: WeatherViewModel?) {
 
         }
         when (val result = weatherResult?.value) {
+
             is NetworkResponse.Error -> {
                 Box(
                     modifier = Modifier
@@ -156,7 +159,11 @@ fun WeatherPage(viewModel: WeatherViewModel?) {
             }
 
             is NetworkResponse.Success -> {
-                WeatherDetails(data = result.data)
+                val forecast = (forecastResult?.value as? NetworkResponse.Success)?.data
+                WeatherDetails(
+                    current = result.data,
+                    forecast = forecast
+                )
             }
 
             null -> {}
@@ -170,21 +177,4 @@ fun WeatherPagePreview1() {
   WeatherPage(viewModel)
 }
 
-@Preview
-@Composable
-fun WeatherPagePreview() {
-    val data = GetCurrentWeatherResponse(
-        current = null,
-        location = Location(
-            name = "London",
-            country = "United Kingdom",
-            lat = 51.52,
-            lon = -0.11, localtime = "2023-11-22 10:30",
-            localtimeEpoch = 1699981800,
-            region = "City of London, Greater London",
-            tzId = "Europe/London"
-        )
-    )
-    WeatherDetails(data = data)
-}
 

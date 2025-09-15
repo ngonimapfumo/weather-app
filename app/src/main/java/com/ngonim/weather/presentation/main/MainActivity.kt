@@ -51,11 +51,6 @@ class MainActivity : ComponentActivity() {
                 unSelectedIcon = Icons.Outlined.LocationOn
             ),
             TabItem(
-                title = "Forecast",
-                selectedIcon = Icons.Filled.Search,
-                unSelectedIcon = Icons.Outlined.Search
-            ),
-            TabItem(
                 title = "Alerts",
                 selectedIcon = Icons.Filled.NotificationsActive,
                 unSelectedIcon = Icons.Outlined.NotificationsActive

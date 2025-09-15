@@ -6,7 +6,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.filled.WbSunny
-import androidx.compose.material3.Divider
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -42,33 +41,22 @@ fun ForecastDetails(forecast: List<GetForecastResponse.Forecast.Forecastday?>?) 
         }
     }
 
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 8.dp)
-    ) {
-        item {
-            Text(
-                text = "7 DAY FORECAST",
-                style = MaterialTheme.typography.labelLarge,
-                modifier = Modifier.padding(bottom = 8.dp)
-            )
-        }
-
-        items(days) { day ->
+    Column(modifier = Modifier
+        .fillMaxWidth()
+        .padding(horizontal = 16.dp, vertical = 8.dp)) {
+        forecast?.take(3)?.forEach { day ->
             ForecastRow(day = day, overallMin = overallMin, overallMax = overallMax)
-            HorizontalDivider(color = Color(0x33FFFFFF), thickness = 1.dp)
         }
     }
 }
 
 @Composable
 private fun ForecastRow(
-    day: GetForecastResponse.Forecast.Forecastday,
+    day: GetForecastResponse.Forecast.Forecastday?,
     overallMin: Double,
     overallMax: Double
 ) {
-    val dateStr = day.date ?: ""
+    val dateStr = day!!.date ?: ""
     val min = day.day?.mintempC ?: 0.0
     val max = day.day?.maxtempC ?: 0.0
     val iconUrl = day.day?.condition?.icon
