@@ -2,9 +2,11 @@ package com.ngonim.weather.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import com.ngonim.weather.R
 
 // Set of Material typography styles to start with
 val Typography = Typography(
@@ -31,4 +33,11 @@ val Typography = Typography(
         letterSpacing = 0.5.sp
     )
     */
+)
+
+val MyCustomFontFamily = FontFamily(
+    Font(R.font.fif_movies, FontWeight.Light),
+    Font(R.font.fif_movies, FontWeight.Normal),
+    Font(R.font.fif_movies, FontWeight.Medium),
+    Font(R.font.fif_movies, FontWeight.Bold)
 )

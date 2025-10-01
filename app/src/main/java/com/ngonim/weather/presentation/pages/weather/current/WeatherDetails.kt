@@ -1,6 +1,7 @@
 package com.ngonim.weather.presentation.pages.weather.current
 
 import WeatherAlertDialog
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -115,7 +116,6 @@ fun WeatherDetails(
         )
         Spacer(modifier = Modifier.padding(8.dp))
 
-
         ForecastDetails(forecast?.forecast?.forecastday)
 
         WeatherStats(
@@ -126,11 +126,6 @@ fun WeatherDetails(
             current.current?.windDir.toString(),
             current.current?.visKm.toString()
         )
-
-        Spacer(modifier = Modifier.padding(8.dp))
-       // val forecast = listOf<GetForecastResponse.Forecast.Forecastday>()
-       // ForecastDetails(listOf<GetForecastResponse.Forecast.Forecastday>())
-
         Spacer(modifier = Modifier.padding(8.dp))
         Button(
             onClick = { showDialog = true },
