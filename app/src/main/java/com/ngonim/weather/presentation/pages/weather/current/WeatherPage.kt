@@ -82,7 +82,8 @@ fun WeatherPage(viewModel: WeatherViewModel?) {
     {
 
        if (!hasPermission) {
-            Text("Location permission not granted")
+            Text("Location permission not granted",
+                color = androidx.compose.ui.graphics.Color.Red)
         } else {
 
             if (coordinates != null && !hasFetched) {
